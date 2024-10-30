@@ -1,6 +1,6 @@
 import Sidebar from "../parts/sidebar";
-import profilePic1 from "../../../public/assets/profielPics/pic1.png";
-import searchIcon from "../../../public/assets/icons/search.svg";
+import profilePic1 from "/assets/profielPics/pic1.png";
+import searchIcon from "/assets/icons/search.svg";
 import { useEffect, useState, useMemo } from "react";
 import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";

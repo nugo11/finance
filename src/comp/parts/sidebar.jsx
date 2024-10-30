@@ -1,10 +1,10 @@
-import logo from "../../../public/assets/Logo.png";
-import homeicon from "../../../public/assets/icons/home.svg";
-import trans from "../../../public/assets/icons/trans.svg";
-import budget from "../../../public/assets/icons/budgets.svg";
-import pots from "../../../public/assets/icons/pots.svg";
-import rec from "../../../public/assets/icons/rec.svg";
-import arrow from "../../../public/assets/icons/arrow.svg";
+import logo from "/assets/Logo.png";
+import homeicon from "/assets/icons/home.svg";
+import trans from "/assets/icons/trans.svg";
+import budget from "/assets/icons/budgets.svg";
+import pots from "/assets/icons/pots.svg";
+import rec from "/assets/icons/rec.svg";
+import arrow from "/assets/icons/arrow.svg";
 import { useState } from "react";
 import { signOut } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";

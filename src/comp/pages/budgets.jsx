@@ -1,6 +1,6 @@
 import DoughnutChart from "../chart";
 import Sidebar from "../parts/sidebar";
-import profilePic1 from "../../../public/assets/profielPics/pic1.png";
+import profilePic1 from "/assets/profielPics/pic1.png";
 import BudgetForm from "../dbActions/addBudgets";
 import { useEffect, useState } from "react";
 import {

@@ -1,9 +1,9 @@
 import Sidebar from "../parts/sidebar";
-import searchIcon from "../../../public/assets/icons/search.svg";
-import profilePic1 from "../../../public/assets/profielPics/pic1.png";
-import allwoIcon from "../../../public/assets/icons/allow.svg";
-import disallwoIcon from "../../../public/assets/icons/disallow.svg";
-import billIcon from "../../../public/assets/icons/bills.svg";
+import searchIcon from "/assets/icons/search.svg";
+import profilePic1 from "/assets/profielPics/pic1.png";
+import allwoIcon from "/assets/icons/allow.svg";
+import disallwoIcon from "/assets/icons/disallow.svg";
+import billIcon from "/assets/icons/bills.svg";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { useEffect, useMemo, useState } from "react";

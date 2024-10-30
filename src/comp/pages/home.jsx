@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import LinkArrow from "../../../public/assets/icons/ph_caret-down-fill.png";
-import potIcon from "../../../public/assets/icons/potIcon.svg";
-import profilePic1 from "../../../public/assets/profielPics/pic1.png";
+import LinkArrow from "/assets/icons/ph_caret-down-fill.png";
+import potIcon from "/assets/icons/potIcon.svg";
+import profilePic1 from "/assets/profielPics/pic1.png";
 import DoughnutChart from "../chart.jsx";
 import Sidebar from "../parts/sidebar.jsx";
 import { useEffect, useState } from "react";
