@@ -1,0 +1,84 @@
+@media (width < 600px) {
+    .loginPage {
+        flex-direction: column;
+    }
+
+    .loginBanner {
+        width: 100%;
+        height: 10vh;
+        background-image: none;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .LogintextBox {
+        display: none;
+    }
+
+    .loginBanner img {
+        transform: translateX(-50%);
+        left: 50%;
+    }
+
+    .loginPanel {
+        width: 100%;
+    }
+    .loginBox {
+        width: 90%;
+    }
+
+    .balanceCards ul {
+        flex-direction: column;
+    }
+
+    .sidenav ul li span {
+        display: none;
+    }
+
+    .sidenav ul li {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .postbody {
+        flex-direction: column;
+        gap: 20px
+    }
+
+    .postBody1, .postbody2 {
+        width: 100%;
+    }
+
+    .transBody {
+        overflow: hidden;
+    }
+
+    .chartspace > div {
+        flex-direction: column !important;
+    }
+
+    .chartLabels {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .chartLabels > div {
+        width: 50%;
+    }
+
+    .firstBudgetRow > .chartspace > div {
+        flex-direction: column;
+      }
+
+      .firstBudgetRow > .chartspace > div .chartLabels {
+        flex-wrap: nowrap;
+        flex-direction: column;
+      }
+
+      .firstRectRow {
+        flex-direction: column;
+        width: 100%;
+      }
+      .rectotalbills, .recSummeri {
+        width: 100%;
+      }
+}
