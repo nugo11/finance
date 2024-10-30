@@ -1,6 +1,4 @@
 import Sidebar from "../parts/sidebar";
-import profilePic1 from "/assets/profielPics/pic1.png";
-import searchIcon from "/assets/icons/search.svg";
 import { useEffect, useState, useMemo } from "react";
 import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
@@ -95,7 +93,7 @@ export default function Transactions() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <img src={searchIcon} alt="Search Icon" />
+                <img src='/public/assets/icons/search.svg' alt="Search Icon" />
               </div>
               <div className="transpagesorts">
                 <div className="sortLatest">
@@ -145,7 +143,7 @@ export default function Transactions() {
                     key={index}
                   >
                     <div className="translistname" id="translistnamee">
-                      <img src={profilePic1} alt="Profile Pic" />
+                      <img src='/public/assets/profielPics/pic1.png' alt="Profile Pic" />
                       <span>{item.rerson}</span>
                     </div>
 

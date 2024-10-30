@@ -1,10 +1,3 @@
-import logo from "/assets/Logo.png";
-import homeicon from "/assets/icons/home.svg";
-import trans from "/assets/icons/trans.svg";
-import budget from "/assets/icons/budgets.svg";
-import pots from "/assets/icons/pots.svg";
-import rec from "/assets/icons/rec.svg";
-import arrow from "/assets/icons/arrow.svg";
 import { useState } from "react";
 import { signOut } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
@@ -45,37 +38,37 @@ export default function Sidebar() {
       style={{ width: "20%" }}
       id={minimized ? "Minimized" : "Minimize"}
     >
-      <img src={logo} alt="logo" className="sideLogo" />
+      <img src='/public/assets/Logo.png' alt="logo" className="sideLogo" />
       <div className="side1">
         <div className="sidenav">
           <ul>
             <Link to="/home">
               <li className={href.includes('home') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src={homeicon} alt="icon" />
+                <img src='/public/assets/icons/home.svg' alt="icon" />
                 <span>Overview</span>
               </li>
             </Link>
             <Link to="/transactions">
               <li className={href.includes('transactions') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src={trans} alt="icon" />
+                <img src='/public/assets/icons/trans.svg' alt="icon" />
                 <span>Transactions</span>
               </li>
             </Link>
             <Link to="/budgets">
               <li className={href.includes('budgets') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src={budget} alt="icon" />
+                <img src='/public/assets/icons/budgets.svg' alt="icon" />
                 <span>Budgets</span>
               </li>
             </Link>
             <Link to="/pots">
               <li className={href.includes('pots') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src={pots} alt="icon" />
+                <img src='/public/assets/icons/pots.svg' alt="icon" />
                 <span>Pots</span>
               </li>
             </Link>
             <Link to="/recurring">
               <li className={href.includes('recurring') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src={rec} alt="icon" />
+                <img src='/public/assets/icons/rec.svg' alt="icon" />
                 <span>Recurring Bills</span>
               </li>
             </Link>
@@ -89,7 +82,7 @@ export default function Sidebar() {
         className="side2"
         onClick={() => (minimized ? minimizeOFF() : minimizeON())}
       >
-        <img src={arrow} alt="icon" />
+        <img src='/public/assets/icons/arrow.svg' alt="icon" />
         <span>Minimize Menu</span>
       </div>
     </div>

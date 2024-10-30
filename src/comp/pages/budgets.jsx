@@ -1,6 +1,5 @@
 import DoughnutChart from "../chart";
 import Sidebar from "../parts/sidebar";
-import profilePic1 from "/assets/profielPics/pic1.png";
 import BudgetForm from "../dbActions/addBudgets";
 import { useEffect, useState } from "react";
 import {
@@ -324,7 +323,7 @@ export default function Budgets() {
                       i.category === item.category ? (
                         <div className="translistitem" key={index}>
                           <div className="translistname">
-                            <img src={profilePic1} alt="profilePic" />
+                            <img src='/public/assets/profielPics/pic1.png' alt="profilePic" />
                             <span id="transpagetitlererson">{i.rerson}</span>
                           </div>
                           <div className="translistinfo">

@@ -1,7 +1,4 @@
 import { Link } from "react-router-dom";
-import LinkArrow from "/assets/icons/ph_caret-down-fill.png";
-import potIcon from "/assets/icons/potIcon.svg";
-import profilePic1 from "/assets/profielPics/pic1.png";
 import DoughnutChart from "../chart.jsx";
 import Sidebar from "../parts/sidebar.jsx";
 import { useEffect, useState } from "react";
@@ -169,12 +166,12 @@ export default function Home() {
                 <div className="potsHead">
                   <h3>Pots</h3>
                   <Link to="/pots">
-                    See Details <img src={LinkArrow} alt="icon" />
+                    See Details <img src='/public/assets/icons/ph_caret-down-fill.png' alt="icon" />
                   </Link>
                 </div>
                 <div className="postbody">
                   <div className="postBody1">
-                    <img src={potIcon} alt="icon" />
+                    <img src='/public/assets/icons/potIcon.svg' alt="icon" />
                     <p>
                       Total Saved{" "}
                       <span>
@@ -245,7 +242,7 @@ export default function Home() {
                 <div className="potsHead">
                   <h3>Transactions</h3>
                   <Link to="/transactions">
-                    View All <img src={LinkArrow} alt="icon" />
+                    View All <img src='/public/assets/icons/ph_caret-down-fill.png' alt="icon" />
                   </Link>
                 </div>
                 <div className="transBody">
@@ -253,7 +250,7 @@ export default function Home() {
                     {items1.map((i, index) => (
                       <div className="translistitem" key={index}>
                         <div className="translistname">
-                          <img src={profilePic1} alt="profilePic" />
+                          <img src='/public/assets/profielPics/pic1.png' alt="profilePic" />
                           <span id="transpagetitlererson">{i.rerson}</span>
                         </div>
                         <div className="translistinfo">
@@ -276,7 +273,7 @@ export default function Home() {
                 <div className="potsHead">
                   <h3>Budgets</h3>
                   <Link to="/budgets">
-                    See Details <img src={LinkArrow} alt="icon" />
+                    See Details <img src='/public/assets/icons/ph_caret-down-fill.png' alt="icon" />
                   </Link>
                 </div>
                 <div className="chartspace">
@@ -297,7 +294,7 @@ export default function Home() {
                 <div className="potsHead">
                   <h3>Recurring Bills</h3>
                   <Link to="/recurring">
-                    See Details <img src={LinkArrow} alt="icon" />
+                    See Details <img src='/public/assets/icons/ph_caret-down-fill.png' alt="icon" />
                   </Link>
                 </div>
                 <ul>

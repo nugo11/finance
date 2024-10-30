@@ -1,9 +1,4 @@
 import Sidebar from "../parts/sidebar";
-import searchIcon from "/assets/icons/search.svg";
-import profilePic1 from "/assets/profielPics/pic1.png";
-import allwoIcon from "/assets/icons/allow.svg";
-import disallwoIcon from "/assets/icons/disallow.svg";
-import billIcon from "/assets/icons/bills.svg";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { useEffect, useMemo, useState } from "react";
@@ -88,7 +83,11 @@ export default function Recurring() {
           <div className="twoRows" id="billPage">
             <div className="firstRectRow">
               <div className="rectotalbills">
-                <img src={billIcon} alt="icon" width={30} />
+                <img
+                  src="/public/assets/icons/bills.svg"
+                  alt="icon"
+                  width={30}
+                />
                 <span>Total Bills</span>
                 <b>
                   $
@@ -155,7 +154,7 @@ export default function Recurring() {
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <img src={searchIcon} alt="icon" />
+                    <img src="/public/assets/icons/search.svg" alt="icon" />
                   </div>
                   <div className="transpagesorts">
                     <div className="sortLatest" id="billpageLatestsort">
@@ -191,18 +190,27 @@ export default function Recurring() {
                         key={index}
                       >
                         <div className="translistname" id="recPageListName">
-                          <img src={profilePic1} alt="profilePic" />
+                          <img
+                            src="/public/assets/profielPics/pic1.png"
+                            alt="profilePic"
+                          />
                           <span>{item.name}</span>
                         </div>
                         <p className={payDate > item.date ? "billgreen" : ""}>
                           Monthly - {item.date}nd{" "}
                           {payDate > item.date ? (
-                            <img src={allwoIcon} alt="icon" />
+                            <img
+                              src="/public/assets/icons/allow.svg"
+                              alt="icon"
+                            />
                           ) : (
                             (item.date == 21 ||
                               item.data == 22 ||
                               item.date == 23) && (
-                              <img src={disallwoIcon} alt="icon" />
+                              <img
+                                src="/public/assets/icons/disallow.svg"
+                                alt="icon"
+                              />
                             )
                           )}
                         </p>
