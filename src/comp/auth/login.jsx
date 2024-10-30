@@ -61,7 +61,7 @@ export default function Login() {
   }, 1100);
 
   if (loading) {
-    return <span class="loader"></span>;
+    return <span className="loader"></span>;
   }
 
   return (

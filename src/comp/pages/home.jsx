@@ -3,7 +3,8 @@ import DoughnutChart from "../chart.jsx";
 import Sidebar from "../parts/sidebar.jsx";
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../../firebase/firebase";
 
 export default function Home() {
   const [EntertainmenttotalAmount, setEntertainmentTotalAmount] = useState(0);
@@ -15,6 +16,7 @@ export default function Home() {
   const [items, setItems] = useState([]);
   const [potsItem, setPots] = useState([]);
   const [billsItem, setBills] = useState([]);
+  const [user, setUser] = useState(null);
 
   const fetchPersonalCareItems = async () => {
     try {
@@ -114,12 +116,24 @@ export default function Home() {
   };
 
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     fetchPersonalCareItems();
     fetchPersonalCareItems1();
   }, []);
 
   if (loading) {
-    return <span class="loader"></span>;
+    return <span className="loader"></span>;
   }
 
   const rame = items.map((ii) => {
@@ -138,7 +152,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="mineCard">
+       {user ?  <div className="mineCard">
         <Sidebar />
         <div className="card" style={{ width: "75%" }}>
           <div className="overview">
@@ -308,7 +322,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> : <center>You need Log In for see this page <Link to="/">Log In</Link></center>}
     </>
   );
 }

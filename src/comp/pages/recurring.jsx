@@ -1,13 +1,16 @@
 import Sidebar from "../parts/sidebar";
 import { collection, getDocs, query } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
 import { useEffect, useMemo, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../../firebase/firebase";
+import { Link } from "react-router-dom";
 
 export default function Recurring() {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("oldest");
+  const [user, setUser] = useState(null);
 
   const fetchTransactions = async () => {
     try {
@@ -26,6 +29,18 @@ export default function Recurring() {
       console.error("Error fetching transactions:", error);
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     fetchTransactions();
@@ -67,14 +82,14 @@ export default function Recurring() {
   }, [items, searchTerm, sortOption]);
 
   if (loading) {
-    return <span class="loader"></span>;
+    return <span className="loader"></span>;
   }
 
   const payDate = 21;
 
   return (
     <>
-      <div className="mineCard">
+       {user ?  <div className="mineCard">
         <Sidebar />
         <div className="budgetCard">
           <div className="budgetHeader">
@@ -234,7 +249,7 @@ export default function Recurring() {
             </div>
           </div>
         </div>
-      </div>
+      </div>: <center>You need Log In for see this page <Link to="/">Log In</Link></center>}
     </>
   );
 }

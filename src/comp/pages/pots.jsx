@@ -7,9 +7,12 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
 import PotsForm from "../dbActions/addPots";
+import { Link } from "react-router-dom";
+
 
 export default function Pots() {
   const [loading, setLoading] = useState(true);
@@ -17,6 +20,7 @@ export default function Pots() {
   const [editIndex, setEditIndex] = useState(null);
   const [selectedBudget, setSelectedBudget] = useState(null);
   const [close, setClose] = useState(true);
+  const [user, setUser] = useState(null);
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
@@ -40,6 +44,18 @@ export default function Pots() {
       console.error("Error fetching transactions:", error);
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     fetchTransactions();
@@ -142,7 +158,7 @@ export default function Pots() {
         </div>
       </div>
 
-      <div className="mineCard">
+      {user ?  <div className="mineCard">
         <Sidebar />
         <div className="budgetCard">
           <div className="budgetHeader">
@@ -226,7 +242,7 @@ export default function Pots() {
             ))}
           </div>
         </div>
-      </div>
+      </div>  : <center>You need Log In for see this page <Link to="/">Log In</Link></center>}
 
       {isAddModalOpen && (
         <div className="darkBG" style={{ display: "block" }}>

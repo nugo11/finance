@@ -10,7 +10,9 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../../firebase/firebase";
+import { Link } from "react-router-dom";
 
 export default function Budgets() {
   const [close, setClose] = useState(true);
@@ -23,6 +25,7 @@ export default function Budgets() {
   const [items, setItems] = useState([]);
   const [selectedBudget, setSelectedBudget] = useState(null);
   const [items1, setItems1] = useState([]);
+  const [user, setUser] = useState(null);
 
   const handleEditBudget = (item) => {
     setSelectedBudget(item);
@@ -131,12 +134,24 @@ export default function Budgets() {
   };
 
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     fetchPersonalCareItems();
     fetchPersonalCareItems1();
   }, []);
 
   if (loading) {
-    return <span class="loader"></span>;
+    return <span className="loader"></span>;
   }
 
   const getBackgroundColor = (color) => {
@@ -184,166 +199,175 @@ export default function Budgets() {
         </div>
       </div>
 
-      <div className="mineCard">
-        <Sidebar />
-        <div className="budgetCard">
-          <div className="budgetHeader">
-            <h1>Budgets</h1>
-            <button
-              onClick={() => {
-                setClose(false);
-                setSelectedBudget(null);
-              }}
-            >
-              + Add New Budget
-            </button>
-          </div>
-          <div className="twoRows">
-            <div className="firstBudgetRow">
-              <div className="chartspace">
-                {EntertainmenttotalAmount === 0 ? (
-                  <p>Searching...</p>
-                ) : (
-                  <DoughnutChart
-                    Entert={EntertainmenttotalAmount}
-                    Bill={BillttotalAmount}
-                    DiningOuttotalAmount={DiningOuttotalAmount}
-                    pqtotalAmount={pqtotalAmount}
-                    sum={sum}
-                  />
-                )}
-              </div>
+      {user ? (
+        <div className="mineCard">
+          <Sidebar />
+          <div className="budgetCard">
+            <div className="budgetHeader">
+              <h1>Budgets</h1>
+              <button
+                onClick={() => {
+                  setClose(false);
+                  setSelectedBudget(null);
+                }}
+              >
+                + Add New Budget
+              </button>
             </div>
-            <div className="secondBudgetRow">
-              {items.map((item, index) => (
-                <div className="budgetbox" key={index}>
-                  <div className="budgetboxheader">
-                    <div className="oneinbudgetboxheader">
-                      <div
-                        className="circle"
-                        style={{
-                          backgroundColor: getBackgroundColor(item.color),
-                        }}
-                      ></div>
-                      <h1>{item.category}</h1>
-                    </div>
-                    <div className="editdelbut">
-                      <button
-                        onClick={() => {
-                          setEditIndex(editIndex === index ? null : index);
-                        }}
-                      >
-                        ...
-                      </button>
-                      <div
-                        onMouseLeave={() => setEditIndex(null)}
-                        className="EditBudget"
-                        id={editIndex === index ? "hidebuto" : "hidebuto1"}
-                      >
-                        <ul>
-                          <li onClick={() => handleEditBudget(item)}>
-                            Edit Budget
-                          </li>
-                          <li
-                            onClick={() => handleDeleteBudget(item.id)}
-                            style={{ color: "#C94736" }}
-                          >
-                            Delete Budget
-                          </li>
-                        </ul>
+            <div className="twoRows">
+              <div className="firstBudgetRow">
+                <div className="chartspace">
+                  {EntertainmenttotalAmount === 0 ? (
+                    <p>Searching...</p>
+                  ) : (
+                    <DoughnutChart
+                      Entert={EntertainmenttotalAmount}
+                      Bill={BillttotalAmount}
+                      DiningOuttotalAmount={DiningOuttotalAmount}
+                      pqtotalAmount={pqtotalAmount}
+                      sum={sum}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="secondBudgetRow">
+                {items.map((item, index) => (
+                  <div className="budgetbox" key={index}>
+                    <div className="budgetboxheader">
+                      <div className="oneinbudgetboxheader">
+                        <div
+                          className="circle"
+                          style={{
+                            backgroundColor: getBackgroundColor(item.color),
+                          }}
+                        ></div>
+                        <h1>{item.category}</h1>
+                      </div>
+                      <div className="editdelbut">
+                        <button
+                          onClick={() => {
+                            setEditIndex(editIndex === index ? null : index);
+                          }}
+                        >
+                          ...
+                        </button>
+                        <div
+                          onMouseLeave={() => setEditIndex(null)}
+                          className="EditBudget"
+                          id={editIndex === index ? "hidebuto" : "hidebuto1"}
+                        >
+                          <ul>
+                            <li onClick={() => handleEditBudget(item)}>
+                              Edit Budget
+                            </li>
+                            <li
+                              onClick={() => handleDeleteBudget(item.id)}
+                              style={{ color: "#C94736" }}
+                            >
+                              Delete Budget
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="budgetProgress">
-                    <span>Maximum of ${item.amount}.00</span>
-                    <div className="progressbaer">
-                      <div
-                        className="progressi"
-                        style={{
-                          width: `${
-                            (items1.reduce((total, i) => {
+                    <div className="budgetProgress">
+                      <span>Maximum of ${item.amount}.00</span>
+                      <div className="progressbaer">
+                        <div
+                          className="progressi"
+                          style={{
+                            width: `${
+                              (items1.reduce((total, i) => {
+                                if (i.category === item.category) {
+                                  return i.type === "plus"
+                                    ? total - i.amount
+                                    : total + i.amount;
+                                }
+                                return total;
+                              }, 0) *
+                                100) /
+                              item.amount
+                            }%`,
+                            backgroundColor: getBackgroundColor(item.color),
+                          }}
+                        ></div>
+                      </div>
+                      <div className="progressAmount">
+                        <div
+                          className="spent"
+                          style={{
+                            borderLeft: `3px solid ${getBackgroundColor(
+                              item.color
+                            )}`,
+                          }}
+                        >
+                          <span>spent</span>
+                          <b>
+                            $
+                            {items1.reduce((total, i) => {
                               if (i.category === item.category) {
                                 return i.type === "plus"
                                   ? total - i.amount
                                   : total + i.amount;
                               }
                               return total;
-                            }, 0) *
-                              100) /
-                            item.amount
-                          }%`,
-                          backgroundColor: getBackgroundColor(item.color),
-                        }}
-                      ></div>
-                    </div>
-                    <div className="progressAmount">
-                      <div
-                        className="spent"
-                        style={{
-                          borderLeft: `3px solid ${getBackgroundColor(
-                            item.color
-                          )}`,
-                        }}
-                      >
-                        <span>spent</span>
-                        <b>
-                          $
-                          {items1.reduce((total, i) => {
-                            if (i.category === item.category) {
-                              return i.type === "plus"
-                                ? total - i.amount
-                                : total + i.amount;
-                            }
-                            return total;
-                          }, 0)}
-                        </b>
-                      </div>
-                      <div
-                        className="spent"
-                        style={{ borderLeft: "3px solid #F8F4F0" }}
-                      >
-                        <span>Remaining</span>
-                        <b>
-                          $
-                          {items1.reduce((budget, i) => {
-                            if (i.category === item.category) {
-                              return i.type === "plus"
-                                ? budget + i.amount
-                                : budget - i.amount;
-                            }
-                            return budget;
-                          }, item.amount)}
-                        </b>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="latestSpending">
-                    <h1>Latest Spending</h1>
-                    {items1.map((i, index) =>
-                      i.category === item.category ? (
-                        <div className="translistitem" key={index}>
-                          <div className="translistname">
-                            <img src='/assets/profielPics/pic1.png' alt="profilePic" />
-                            <span id="transpagetitlererson">{i.rerson}</span>
-                          </div>
-                          <div className="translistinfo">
-                            <span
-                              className={i.type === "plus" ? "greentext" : ""}
-                            >
-                              {i.type === "plus" ? "+" : "-"}${i.amount}
-                            </span>
-                            <p>{i.date}</p>
-                          </div>
+                            }, 0)}
+                          </b>
                         </div>
-                      ) : null
-                    )}
+                        <div
+                          className="spent"
+                          style={{ borderLeft: "3px solid #F8F4F0" }}
+                        >
+                          <span>Remaining</span>
+                          <b>
+                            $
+                            {items1.reduce((budget, i) => {
+                              if (i.category === item.category) {
+                                return i.type === "plus"
+                                  ? budget + i.amount
+                                  : budget - i.amount;
+                              }
+                              return budget;
+                            }, item.amount)}
+                          </b>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="latestSpending">
+                      <h1>Latest Spending</h1>
+                      {items1.map((i, index) =>
+                        i.category === item.category ? (
+                          <div className="translistitem" key={index}>
+                            <div className="translistname">
+                              <img
+                                src="/assets/profielPics/pic1.png"
+                                alt="profilePic"
+                              />
+                              <span id="transpagetitlererson">{i.rerson}</span>
+                            </div>
+                            <div className="translistinfo">
+                              <span
+                                className={i.type === "plus" ? "greentext" : ""}
+                              >
+                                {i.type === "plus" ? "+" : "-"}${i.amount}
+                              </span>
+                              <p>{i.date}</p>
+                            </div>
+                          </div>
+                        ) : null
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <center>
+          You need Log In for see this page <Link to="/">Log In</Link>
+        </center>
+      )}
     </>
   );
 }

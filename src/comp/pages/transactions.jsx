@@ -1,7 +1,9 @@
 import Sidebar from "../parts/sidebar";
 import { useEffect, useState, useMemo } from "react";
 import { collection, query, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "../../firebase/firebase";
+import { Link } from "react-router-dom";
 
 export default function Transactions() {
   const [loading, setLoading] = useState(true);
@@ -9,6 +11,7 @@ export default function Transactions() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("latest");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [user, setUser] = useState(null);
 
   const fetchTransactions = async () => {
     try {
@@ -27,6 +30,18 @@ export default function Transactions() {
       console.error("Error fetching transactions:", error);
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     fetchTransactions();
@@ -74,12 +89,12 @@ export default function Transactions() {
   }, [items, searchTerm, sortOption, categoryFilter]);
 
   if (loading) {
-    return <span class="loader"></span>;
+    return <span className="loader"></span>;
   }
 
   return (
     <>
-      <div className="mineCard">
+    {user ?  <div className="mineCard">
         <Sidebar />
         <div className="Transcard">
           <h1>Transactions</h1>
@@ -93,7 +108,7 @@ export default function Transactions() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <img src='/assets/icons/search.svg' alt="Search Icon" />
+                <img src="/assets/icons/search.svg" alt="Search Icon" />
               </div>
               <div className="transpagesorts">
                 <div className="sortLatest">
@@ -143,7 +158,10 @@ export default function Transactions() {
                     key={index}
                   >
                     <div className="translistname" id="translistnamee">
-                      <img src='/assets/profielPics/pic1.png' alt="Profile Pic" />
+                      <img
+                        src="/assets/profielPics/pic1.png"
+                        alt="Profile Pic"
+                      />
                       <span>{item.rerson}</span>
                     </div>
 
@@ -158,7 +176,8 @@ export default function Transactions() {
             </div>
           </div>
         </div>
-      </div>
+      </div> : <center>You need Log In for see this page <Link to="/">Log In</Link></center>}
+     
     </>
   );
 }
