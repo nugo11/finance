@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import logo from "../../../public/assets/logo.png";
+import logo from "/assets/logo.png";
 
 export default function Login() {
   const [email, setEmail] = useState("");
