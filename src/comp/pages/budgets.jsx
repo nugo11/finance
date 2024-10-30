@@ -323,7 +323,7 @@ export default function Budgets() {
                       i.category === item.category ? (
                         <div className="translistitem" key={index}>
                           <div className="translistname">
-                            <img src='/public/assets/profielPics/pic1.png' alt="profilePic" />
+                            <img src='/assets/profielPics/pic1.png' alt="profilePic" />
                             <span id="transpagetitlererson">{i.rerson}</span>
                           </div>
                           <div className="translistinfo">

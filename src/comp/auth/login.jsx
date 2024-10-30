@@ -67,7 +67,7 @@ export default function Login() {
   return (
     <div className="loginPage">
       <div className="loginBanner">
-        <img src="/public/assets/Logo.png" alt="logo" />
+        <img src="/assets/Logo.png" alt="logo" />
         <div className="LogintextBox">
           <h2>Keep track of your money and save for your future</h2>
           <p>
@@ -111,7 +111,7 @@ export default function Login() {
               required
             />
             <img
-              src="/public/assets/icons/eye.png"
+              src="/assets/icons/eye.png"
               alt="eyeicon"
               onClick={() =>
                 showPass ? setShowPass(false) : setShowPass(true)

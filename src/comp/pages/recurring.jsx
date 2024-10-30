@@ -84,7 +84,7 @@ export default function Recurring() {
             <div className="firstRectRow">
               <div className="rectotalbills">
                 <img
-                  src="/public/assets/icons/bills.svg"
+                  src="/assets/icons/bills.svg"
                   alt="icon"
                   width={30}
                 />
@@ -154,7 +154,7 @@ export default function Recurring() {
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <img src="/public/assets/icons/search.svg" alt="icon" />
+                    <img src="/assets/icons/search.svg" alt="icon" />
                   </div>
                   <div className="transpagesorts">
                     <div className="sortLatest" id="billpageLatestsort">
@@ -191,7 +191,7 @@ export default function Recurring() {
                       >
                         <div className="translistname" id="recPageListName">
                           <img
-                            src="/public/assets/profielPics/pic1.png"
+                            src="/assets/profielPics/pic1.png"
                             alt="profilePic"
                           />
                           <span>{item.name}</span>
@@ -200,7 +200,7 @@ export default function Recurring() {
                           Monthly - {item.date}nd{" "}
                           {payDate > item.date ? (
                             <img
-                              src="/public/assets/icons/allow.svg"
+                              src="/assets/icons/allow.svg"
                               alt="icon"
                             />
                           ) : (
@@ -208,7 +208,7 @@ export default function Recurring() {
                               item.data == 22 ||
                               item.date == 23) && (
                               <img
-                                src="/public/assets/icons/disallow.svg"
+                                src="/assets/icons/disallow.svg"
                                 alt="icon"
                               />
                             )

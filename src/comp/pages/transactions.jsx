@@ -93,7 +93,7 @@ export default function Transactions() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <img src='/public/assets/icons/search.svg' alt="Search Icon" />
+                <img src='/assets/icons/search.svg' alt="Search Icon" />
               </div>
               <div className="transpagesorts">
                 <div className="sortLatest">
@@ -143,7 +143,7 @@ export default function Transactions() {
                     key={index}
                   >
                     <div className="translistname" id="translistnamee">
-                      <img src='/public/assets/profielPics/pic1.png' alt="Profile Pic" />
+                      <img src='/assets/profielPics/pic1.png' alt="Profile Pic" />
                       <span>{item.rerson}</span>
                     </div>
 

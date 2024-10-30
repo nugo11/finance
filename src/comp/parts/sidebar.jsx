@@ -38,37 +38,37 @@ export default function Sidebar() {
       style={{ width: "20%" }}
       id={minimized ? "Minimized" : "Minimize"}
     >
-      <img src='/public/assets/Logo.png' alt="logo" className="sideLogo" />
+      <img src='/assets/Logo.png' alt="logo" className="sideLogo" />
       <div className="side1">
         <div className="sidenav">
           <ul>
             <Link to="/home">
               <li className={href.includes('home') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src='/public/assets/icons/home.svg' alt="icon" />
+                <img src='/assets/icons/home.svg' alt="icon" />
                 <span>Overview</span>
               </li>
             </Link>
             <Link to="/transactions">
               <li className={href.includes('transactions') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src='/public/assets/icons/trans.svg' alt="icon" />
+                <img src='/assets/icons/trans.svg' alt="icon" />
                 <span>Transactions</span>
               </li>
             </Link>
             <Link to="/budgets">
               <li className={href.includes('budgets') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src='/public/assets/icons/budgets.svg' alt="icon" />
+                <img src='/assets/icons/budgets.svg' alt="icon" />
                 <span>Budgets</span>
               </li>
             </Link>
             <Link to="/pots">
               <li className={href.includes('pots') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src='/public/assets/icons/pots.svg' alt="icon" />
+                <img src='/assets/icons/pots.svg' alt="icon" />
                 <span>Pots</span>
               </li>
             </Link>
             <Link to="/recurring">
               <li className={href.includes('recurring') ? "activeNavBut" : "inactiveNavBut"}>
-                <img src='/public/assets/icons/rec.svg' alt="icon" />
+                <img src='/assets/icons/rec.svg' alt="icon" />
                 <span>Recurring Bills</span>
               </li>
             </Link>
@@ -82,7 +82,7 @@ export default function Sidebar() {
         className="side2"
         onClick={() => (minimized ? minimizeOFF() : minimizeON())}
       >
-        <img src='/public/assets/icons/arrow.svg' alt="icon" />
+        <img src='/assets/icons/arrow.svg' alt="icon" />
         <span>Minimize Menu</span>
       </div>
     </div>

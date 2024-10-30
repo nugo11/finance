@@ -37,7 +37,7 @@ li {
   background-color: var(--color-grey-900, #201f24);
   height: 97vh;
   border-radius: 12px;
-  background-image: url(../public/assets/sidebar/Sidebar.png);
+  background-image: url(../assets/sidebar/Sidebar.png);
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
